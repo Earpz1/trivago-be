@@ -45,6 +45,7 @@ usersRouter.post('/login', async (request, response, next) => {
   }
 })
 
+//Allow a user to get details about them, not including password!
 usersRouter.get('/me', JWTMiddleware, async (request, response, next) => {
   try {
     const user = await usersModel
@@ -62,6 +63,8 @@ usersRouter.get('/me', JWTMiddleware, async (request, response, next) => {
     next(error)
   }
 })
+
+//Allow a user to get all the accommodations they are hosting
 
 usersRouter.get(
   '/me/accommodations',
