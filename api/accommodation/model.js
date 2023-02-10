@@ -7,6 +7,7 @@ const accommodationSchema = new Schema({
   host: { type: Schema.Types.ObjectId, required: true, ref: 'usersModel' },
   description: { type: String, required: true },
   city: { type: String, required: true },
+  rating: { type: String },
   maxGuests: { type: String, required: true },
 })
 
