@@ -17,6 +17,8 @@ accommodationRouter.post(
         city: request.body.city,
         maxGuests: request.body.maxGuests,
         description: request.body.description,
+        image: request.body.image,
+        rating: request.body.rating,
         host: request.user._id,
       })
       const { _id } = await newAccommodation.save()
