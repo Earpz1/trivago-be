@@ -2,6 +2,7 @@ import express from 'express'
 import createHttpError from 'http-errors'
 import accommodationModel from './model.js'
 import { hostOnlyMiddleware, JWTMiddleware } from '../lib/tools.js'
+import queryString from 'mongoose'
 
 const accommodationRouter = express.Router()
 
@@ -32,9 +33,13 @@ accommodationRouter.post(
 //Returns all accommoodations, only if user is logged in
 
 accommodationRouter.get('/', JWTMiddleware, async (request, response, next) => {
+  let query = {}
+  if (request.query.featured) {
+    query = { featured: request.query.featured }
+  }
   try {
     const accommodations = await accommodationModel
-      .find({})
+      .find(query)
       .populate({ path: 'host', select: 'email name' })
     response.status(200).send(accommodations)
   } catch (error) {

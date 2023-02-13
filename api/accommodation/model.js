@@ -10,6 +10,7 @@ const accommodationSchema = new Schema({
   city: { type: String, required: true },
   rating: { type: Number },
   maxGuests: { type: String, required: true },
+  featured: { type: String, default: false },
 })
 
 export default model('accommodationModel', accommodationSchema)
