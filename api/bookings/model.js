@@ -5,8 +5,8 @@ const { Schema, model } = mongoose
 const bookingSchema = new Schema({
   guestID: {
     type: Schema.Types.ObjectId,
-    required: true,
     ref: 'usersModel',
+    default: null,
   },
   hostID: {
     type: Schema.Types.ObjectId,
@@ -19,7 +19,7 @@ const bookingSchema = new Schema({
     ref: 'accommodationModel',
   },
   dateFrom: { type: String, required: true },
-  dateTo: { type: String, required: true },
+  duration: { type: String, required: true },
   price: { type: Number, required: true },
   confirmed: { type: Boolean, default: false },
 })

@@ -30,9 +30,9 @@ accommodationRouter.post(
   },
 )
 
-//Returns all accommoodations, only if user is logged in
+//Returns all accommoodations
 
-accommodationRouter.get('/', JWTMiddleware, async (request, response, next) => {
+accommodationRouter.get('/', async (request, response, next) => {
   let query = {}
   if (request.query.featured) {
     query = { featured: request.query.featured }
@@ -53,30 +53,26 @@ accommodationRouter.get('/', JWTMiddleware, async (request, response, next) => {
 
 //Return a specific accommodation, only if a user is logged in
 
-accommodationRouter.get(
-  '/:id',
-  JWTMiddleware,
-  async (request, response, next) => {
-    try {
-      const accommodation = await accommodationModel
-        .findById(request.params.id)
-        .populate({ path: 'host', select: 'name email' })
+accommodationRouter.get('/:id', async (request, response, next) => {
+  try {
+    const accommodation = await accommodationModel
+      .findById(request.params.id)
+      .populate({ path: 'host', select: 'name email' })
 
-      if (accommodation) {
-        response.send(accommodation)
-      } else {
-        next(
-          createHttpError(
-            404,
-            `We could not find an accommodation with the ID ${request.params.id}`,
-          ),
-        )
-      }
-    } catch (error) {
-      next(error)
+    if (accommodation) {
+      response.send(accommodation)
+    } else {
+      next(
+        createHttpError(
+          404,
+          `We could not find an accommodation with the ID ${request.params.id}`,
+        ),
+      )
     }
-  },
-)
+  } catch (error) {
+    next(error)
+  }
+})
 
 accommodationRouter.put(
   '/:id',
@@ -109,6 +105,7 @@ accommodationRouter.put(
         )
       }
     } catch (error) {
+      console.log(error)
       next(error)
     }
   },
