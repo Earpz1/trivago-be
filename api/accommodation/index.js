@@ -33,15 +33,23 @@ accommodationRouter.post(
 //Returns all accommoodations
 
 accommodationRouter.get('/', async (request, response, next) => {
+  const cleanString = (string) => {
+    const words = string.split(' ')
+
+    for (let i = 0; i < words.length; i++) {
+      words[i] = words[i][0].toUpperCase() + words[i].substr(1)
+    }
+    return words.join(' ')
+  }
+
   let query = {}
   if (request.query.featured) {
     query = { featured: request.query.featured }
   }
 
   if (request.query.location) {
-    const location =
-      request.query.location.charAt(0).toUpperCase() +
-      request.query.location.slice(1)
+    const location = cleanString(request.query.location)
+    console.log(location)
     query = { city: location }
   }
   try {
