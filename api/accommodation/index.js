@@ -39,7 +39,10 @@ accommodationRouter.get('/', async (request, response, next) => {
   }
 
   if (request.query.location) {
-    query = { city: request.query.location }
+    const location =
+      request.query.location.charAt(0).toUpperCase() +
+      request.query.location.slice(1)
+    query = { city: location }
   }
   try {
     const accommodations = await accommodationModel
