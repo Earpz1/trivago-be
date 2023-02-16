@@ -10,6 +10,7 @@ import {
   notFoundError,
   unauthorizedError,
 } from './errorHandlers.js'
+import bookingsRouter from '../api/bookings/index.js'
 
 const server = express()
 const port = process.env.PORT || 3001
@@ -21,6 +22,7 @@ server.use(express.json())
 //Endpoints
 server.use('/users', usersRouter)
 server.use('/accommodation', accommodationRouter)
+server.use('/bookings', bookingsRouter)
 
 //Error handlers
 server.use(unauthorizedError)

@@ -37,6 +37,10 @@ accommodationRouter.get('/', JWTMiddleware, async (request, response, next) => {
   if (request.query.featured) {
     query = { featured: request.query.featured }
   }
+
+  if (request.query.location) {
+    query = { city: request.query.location }
+  }
   try {
     const accommodations = await accommodationModel
       .find(query)
